@@ -74,7 +74,22 @@ pyserial
 stable-baselines3
 numpy
 pyyaml
+flask
 ```
+
+---
+
+## 🌐 Web Configuration UI
+
+Start the Flask server for a simple interface to edit `config.yaml` in your
+browser:
+
+```bash
+python -m web.app
+```
+
+The form allows you to adjust serial, RL, and vision settings. Changes are saved
+back to the YAML file.
 
 ---
 
