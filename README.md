@@ -71,8 +71,9 @@ Written in Python (venv + pip). Main components:
 opencv-python
 mediapipe
 pyserial
-torch or tensorflow
-stable-baselines3 (for RL)
+stable-baselines3
+numpy
+pyyaml
 ```
 
 ---

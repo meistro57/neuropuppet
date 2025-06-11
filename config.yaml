@@ -1,0 +1,20 @@
+# Neuropuppet configuration file
+# Pin settings for motors and RL parameters
+
+serial:
+  port: /dev/ttyACM0
+  baudrate: 115200
+  timeout: 1.0
+
+motors:
+  count: 6
+
+rl:
+  total_timesteps: 10000
+  learning_rate: 0.0003
+  gamma: 0.99
+  device: cpu
+
+vision:
+  camera_index: 0
+  use_mediapipe: true

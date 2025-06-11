@@ -10,6 +10,8 @@ from typing import Optional
 
 import serial
 
+from .utils import setup_logger
+
 
 class MotorController:
     """Manage serial communication with the Arduino.
@@ -29,6 +31,7 @@ class MotorController:
         self.baudrate = baudrate
         self.timeout = timeout
         self.ser: Optional[serial.Serial] = None
+        self.log = setup_logger(self.__class__.__name__)
         self.connect()
 
     def connect(self) -> None:
@@ -36,10 +39,10 @@ class MotorController:
         while True:
             try:
                 self.ser = serial.Serial(self.port, self.baudrate, timeout=self.timeout)
-                print(f"Connected to {self.port}")
+                self.log.info("Connected to %s", self.port)
                 break
             except serial.SerialException as exc:
-                print(f"Serial connection error: {exc}. Retrying in 2 seconds...")
+                self.log.error("Serial connection error: %s. Retrying in 2 seconds...", exc)
                 time.sleep(2)
 
     def _send(self, message: str) -> None:
@@ -47,9 +50,11 @@ class MotorController:
             self.connect()
         try:
             assert self.ser
+            self.log.debug("Sending: %s", message.strip())
             self.ser.write(message.encode("utf-8"))
-        except serial.SerialException:
-            print("Lost connection. Reconnecting...")
+        except serial.SerialException as exc:
+            self.log.error("Write failed: %s", exc)
+            self.log.info("Reconnecting...")
             self.connect()
             assert self.ser
             self.ser.write(message.encode("utf-8"))
@@ -65,14 +70,17 @@ class MotorController:
             Positive or negative step count.
         """
         cmd = f"M{motor_id}:{steps}\n"
+        self.log.debug("move_motor %d -> %d", motor_id, steps)
         self._send(cmd)
 
     def home_all(self) -> None:
         """Trigger the homing routine on the Arduino."""
+        self.log.info("Homing all motors")
         self._send("HOME\n")
 
     def close(self) -> None:
         if self.ser and self.ser.is_open:
+            self.log.info("Closing serial connection")
             self.ser.close()
 
 

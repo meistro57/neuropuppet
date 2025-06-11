@@ -1,0 +1,6 @@
+opencv-python
+mediapipe
+pyserial
+stable-baselines3
+numpy
+pyyaml
