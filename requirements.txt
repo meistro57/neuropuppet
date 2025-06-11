@@ -4,3 +4,4 @@ pyserial
 stable-baselines3
 numpy
 pyyaml
+flask
