@@ -1,0 +1,13 @@
+# Example motor sequence for Neuropuppet
+- motor: 1
+  steps: 200
+  delay: 0.5
+- motor: 2
+  steps: -200
+  delay: 0.5
+- motor: 3
+  steps: 150
+  delay: 0.5
+- motor: 1
+  steps: -200
+  delay: 0.5

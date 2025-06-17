@@ -16,6 +16,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--config", default="config.yaml", help="Path to config file")
     parser.add_argument("--train", action="store_true", help="Run PPO training")
     parser.add_argument("--timesteps", type=int, help="Override training steps")
+    parser.add_argument("--sequence", help="Run movement sequence from YAML")
     return parser.parse_args()
 
 
@@ -32,6 +33,15 @@ def main() -> None:
         baudrate=int(serial_cfg.get("baudrate", 115200)),
         timeout=float(serial_cfg.get("timeout", 1.0)),
     )
+
+    if args.sequence:
+        from core.sequence import load_sequence, play_sequence
+        sequence = load_sequence(args.sequence)
+        try:
+            play_sequence(controller, sequence)
+        finally:
+            controller.close()
+        return
 
     tracker = PoseTracker(
         camera_index=int(vision_cfg.get("camera_index", 0)),
