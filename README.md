@@ -118,6 +118,27 @@ Neuropuppet supports:
 
 ---
 
+## 🕺 Scripted Sequences
+
+Define motor actions in a YAML file and play them back with `--sequence`.
+
+```yaml
+- motor: 1
+  steps: 200
+  delay: 0.5
+- motor: 2
+  steps: -200
+  delay: 0.5
+```
+
+Run the file:
+
+```bash
+python main.py --sequence demo_sequence.yaml
+```
+
+---
+
 ## 🧪 Testing & Calibration
 
 - Manual homing or switch-based homing
