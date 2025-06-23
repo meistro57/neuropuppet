@@ -139,6 +139,18 @@ python main.py --sequence demo_sequence.yaml
 
 ---
 
+## 🧱 3D Pose Designer
+
+Design custom poses interactively in a lightweight OpenGL window. Launch the designer with:
+
+```bash
+python -m core.designer
+```
+
+Use number keys **1-5** to select a joint (head, left hand, right hand, left foot, right foot) and arrow/PageUp/PageDown keys to move it. Press **Ctrl+S** to save the pose to `pose.yaml`.
+
+---
+
 ## 🧪 Testing & Calibration
 
 - Manual homing or switch-based homing
